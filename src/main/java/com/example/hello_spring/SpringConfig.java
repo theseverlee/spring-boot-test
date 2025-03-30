@@ -1,5 +1,6 @@
 package com.example.hello_spring;
 
+import com.example.hello_spring.aop.TimeTraceAop;
 import com.example.hello_spring.repository.*;
 import com.example.hello_spring.service.MemberService;
 import jakarta.persistence.EntityManager;
@@ -25,6 +26,11 @@ public class SpringConfig {
     return new MemberService(memberRepository);
     // 스프링데이터 JPA
   }
+
+//  @Bean // Aop는 빈에 명시해서 aop를 사용하는구나 인지시키는게 좋다.
+//  public TimeTraceAop timeTraceAop(){
+//    return new TimeTraceAop();
+//  }
 
 //  @Bean
 //  public MemberRepository memberRepository(){
