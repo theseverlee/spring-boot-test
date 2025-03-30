@@ -13,27 +13,21 @@ import javax.xml.crypto.Data;
 @Configuration
 public class SpringConfig {
 
-  private DataSource dataSource;
-
-//  @Autowired
-//  public SpringConfig(DataSource dataSource) {
-//    this.dataSource = dataSource;
-//  }
-
-  private EntityManager em;
+  private final MemberRepository memberRepository;
 
   @Autowired
-  public SpringConfig(EntityManager em) {
-    this.em = em;
+  public SpringConfig(MemberRepository memberRepository) {
+    this.memberRepository = memberRepository;
   }
 
   @Bean
   public MemberService memberService(){
-    return new MemberService(memberRepository());
+    return new MemberService(memberRepository);
+    // 스프링데이터 JPA
   }
 
-  @Bean
-  public MemberRepository memberRepository(){
+//  @Bean
+//  public MemberRepository memberRepository(){
 //    return new JdbcMemoryMemberRepository(dataSource);  // 추후 변경
     // 구현체만 바꿨는데도 잘 돌아간다.
     // 객체지향의 진짜 매력은
@@ -43,7 +37,8 @@ public class SpringConfig {
 //    return new MemoryMemberRepository();
 
     // JPA버전
-    return new JpaMemberRepository(em); // 이놈은 EntityManager가 필요하다.
-  }
+//    return new JpaMemberRepository(em); // 이놈은 EntityManager가 필요하다.
+
+//  }
 
 }
