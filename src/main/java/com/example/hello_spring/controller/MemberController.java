@@ -1,9 +1,15 @@
 package com.example.hello_spring.controller;
 
+import com.example.hello_spring.domain.Member;
 import com.example.hello_spring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -35,6 +41,27 @@ public class MemberController {
   // >>>> 제일 좋은건 ::: 생성자 주입임  // 의존관계가 변경되는 일은 거즘 없음
 
 
+  @GetMapping("/members/new")
+  public String createForm(){
+    return "members/createMemberForm";
+  }
+
+  @PostMapping("/members/new") // postMapping은 주로 데이터를 전달할 때 사용한다.
+  public String create(MemberForm form){
+    Member member = new Member();
+    member.setName(form.getName());
+//    System.out.println("member.getName() = " + member.getName());
+
+    memberService.join(member);
+    return "redirect:/";
+  }
+
+  @GetMapping("/members")
+  public String list(Model model){
+    List<Member> members = memberService.findMember();
+    model.addAttribute("members",members);
+    return "members/memberList";
+  }
 
 
 
