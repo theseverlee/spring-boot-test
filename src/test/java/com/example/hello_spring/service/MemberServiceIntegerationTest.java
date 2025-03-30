@@ -5,6 +5,7 @@ import com.example.hello_spring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,6 +21,7 @@ class MemberServiceIntegerationTest {
   @Autowired MemberRepository memberRepository;
 
   @Test // 테스트는 과감하게 한글로 사용해도 된다. join 회원가입
+  // @Commit // DB에 커밋하기 트랜잭셔널 있어도 커밋된다.
   void 회원가입() {
     // given // 뭔가 주어젔을때
     Member member = new Member();

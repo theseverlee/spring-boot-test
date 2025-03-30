@@ -2,10 +2,12 @@ package com.example.hello_spring.service;
 
 import com.example.hello_spring.domain.Member;
 import com.example.hello_spring.repository.MemberRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional // 데이터를 저장을 할때는 JPA를 사용해야한다.
 public class MemberService {
 
   private final MemberRepository memberRepository;

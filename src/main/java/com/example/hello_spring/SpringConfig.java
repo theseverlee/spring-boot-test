@@ -1,10 +1,8 @@
 package com.example.hello_spring;
 
-import com.example.hello_spring.repository.JdbcMemoryMemberRepository;
-import com.example.hello_spring.repository.JdbcTemplateMemberRepository;
-import com.example.hello_spring.repository.MemberRepository;
-import com.example.hello_spring.repository.MemoryMemberRepository;
+import com.example.hello_spring.repository.*;
 import com.example.hello_spring.service.MemberService;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +15,16 @@ public class SpringConfig {
 
   private DataSource dataSource;
 
+//  @Autowired
+//  public SpringConfig(DataSource dataSource) {
+//    this.dataSource = dataSource;
+//  }
+
+  private EntityManager em;
+
   @Autowired
-  public SpringConfig(DataSource dataSource) {
-    this.dataSource = dataSource;
+  public SpringConfig(EntityManager em) {
+    this.em = em;
   }
 
   @Bean
@@ -34,8 +39,11 @@ public class SpringConfig {
     // 객체지향의 진짜 매력은
     // 인터페이스에서 구현체를 바꾸더라도 기존코드를 수정하지 않아도 되는점
 
-    return new JdbcTemplateMemberRepository(dataSource);  // 추후 변경
+//    return new JdbcTemplateMemberRepository(dataSource);  // 추후 변경
 //    return new MemoryMemberRepository();
+
+    // JPA버전
+    return new JpaMemberRepository(em); // 이놈은 EntityManager가 필요하다.
   }
 
 }
